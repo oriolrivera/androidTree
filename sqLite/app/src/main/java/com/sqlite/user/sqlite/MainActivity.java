@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.sqlite.user.sqlite.Controllers.SaveUser;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("debugin", "" + view.getId() +"");
 
+        /*
+         Redirect to different activities
+          */
         switch (view.getId()){
             case R.id.btnAdd:
                 myIntent = new Intent(MainActivity.this, SaveUser.class);
