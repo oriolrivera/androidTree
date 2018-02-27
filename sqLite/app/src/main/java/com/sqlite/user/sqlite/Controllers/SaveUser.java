@@ -1,11 +1,13 @@
 package com.sqlite.user.sqlite.Controllers;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.sqlite.user.sqlite.Config.ConnectionSQLiteHelper;
 import com.sqlite.user.sqlite.R;
@@ -36,7 +38,8 @@ public class SaveUser extends AppCompatActivity {
 
     private void saveUser() {
         Log.d("d", "guardar usuario");
-        commitUserSql();
+       // commitUserSql();
+        commitUser();
     }
 
     /*
@@ -54,6 +57,23 @@ public class SaveUser extends AppCompatActivity {
                 + keyEmail.getText().toString()+"')";
 
         db.execSQL(insert);
+
+        db.close();
+    }
+
+    private void commitUser(){
+        ConnectionSQLiteHelper conn = new ConnectionSQLiteHelper(this,"UsersDB",null,1);
+        SQLiteDatabase db = conn.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(CreateUsersTable.KEY_ID, keyId.getText().toString());
+        values.put(CreateUsersTable.KEY_NAME, keyName.getText().toString());
+        values.put(CreateUsersTable.KEY_EMAIL, keyEmail.getText().toString());
+
+        Long result = db.insert(CreateUsersTable.TABLE_USER, CreateUsersTable.KEY_ID, values);
+
+        Toast.makeText(getApplicationContext(), "Id = " + result, Toast.LENGTH_SHORT).show();
 
         db.close();
     }
