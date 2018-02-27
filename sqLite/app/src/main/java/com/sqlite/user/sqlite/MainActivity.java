@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.sqlite.user.sqlite.Controllers.SaveUser;
+import com.sqlite.user.sqlite.Controllers.Users;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.btnAdd:
                 myIntent = new Intent(MainActivity.this, SaveUser.class);
+                break;
+            case R.id.btnRecyclerViewBasic:
+                myIntent = new Intent(MainActivity.this, Users.class);
                 break;
         }
         if (myIntent != null){

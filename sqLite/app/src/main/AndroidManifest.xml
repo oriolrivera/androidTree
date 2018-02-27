@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Controllers.SaveUser" />
+        <activity android:name=".Controllers.Users" />
     </application>
 
 </manifest>
