@@ -20,4 +20,11 @@
             android:onClick="onClick"
             android:text="RecyclerView basico" />
 
+        <Button
+            android:id="@+id/btnRecyclerViewUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="RecyclerView Lista usuarios" />
+
 </LinearLayout>

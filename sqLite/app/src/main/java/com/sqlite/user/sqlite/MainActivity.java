@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.sqlite.user.sqlite.Controllers.SaveUser;
 import com.sqlite.user.sqlite.Controllers.Users;
+import com.sqlite.user.sqlite.Controllers.UsersList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btnRecyclerViewBasic:
                 myIntent = new Intent(MainActivity.this, Users.class);
                 break;
+            case R.id.btnRecyclerViewUser:
+                myIntent = new Intent(MainActivity.this, UsersList.class);
+                break;
+
         }
         if (myIntent != null){
             startActivity(myIntent);
