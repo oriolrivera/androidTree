@@ -27,4 +27,11 @@
             android:onClick="onClick"
             android:text="RecyclerView Lista usuarios" />
 
+        <Button
+            android:id="@+id/btnManagerUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Administrar usuarios"
+            android:onClick="onClick"/>
+
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.sqlite.user.sqlite.Controllers.ManagerUser;
 import com.sqlite.user.sqlite.Controllers.SaveUser;
 import com.sqlite.user.sqlite.Controllers.Users;
 import com.sqlite.user.sqlite.Controllers.UsersList;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btnRecyclerViewUser:
                 myIntent = new Intent(MainActivity.this, UsersList.class);
+                break;
+            case R.id.btnManagerUser:
+                myIntent = new Intent(MainActivity.this, ManagerUser.class);
                 break;
 
         }
