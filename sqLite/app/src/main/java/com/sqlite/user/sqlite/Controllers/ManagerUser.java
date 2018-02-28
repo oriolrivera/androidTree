@@ -40,6 +40,9 @@ public class ManagerUser extends AppCompatActivity {
             case R.id.btnUpdate:
                 updateUser();
                 break;
+            case R.id.btnDelete:
+                deleteUser();
+                break;
         }
     }
 
@@ -90,6 +93,17 @@ public class ManagerUser extends AppCompatActivity {
             clearInputs();
         }
 
+    }
+
+    private void deleteUser() {
+        SQLiteDatabase db = conn.getWritableDatabase();
+        String[] params = {inputId.getText().toString()};
+
+        db.delete(CreateUsersTable.TABLE_USER,CreateUsersTable.KEY_ID + "=?", params);
+        Toast.makeText(getApplicationContext(),"Usuario eliminado con éxito",Toast.LENGTH_LONG).show();
+        inputId.setText("");
+        clearInputs();
+        db.close();
     }
 
     private void clearInputs() {
