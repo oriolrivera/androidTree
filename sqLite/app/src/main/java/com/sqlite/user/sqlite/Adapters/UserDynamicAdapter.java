@@ -47,7 +47,7 @@ public class UserDynamicAdapter extends RecyclerView.Adapter<UserDynamicAdapter.
             super(itemView);
 
             name = (TextView) itemView.findViewById(R.id.idName);
-            email = (TextView) itemView.findViewById(R.id.idName);
+            email = (TextView) itemView.findViewById(R.id.idEmail);
         }
     }
 }

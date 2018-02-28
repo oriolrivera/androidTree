@@ -1,5 +1,6 @@
 package com.sqlite.user.sqlite.Controllers;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +37,22 @@ public class ManagerUser extends AppCompatActivity {
                 getUser();
                 //getUserSql();
                 break;
+            case R.id.btnUpdate:
+                updateUser();
+                break;
         }
+    }
+
+    private void updateUser() {
+        SQLiteDatabase db=conn.getWritableDatabase();
+        String[] params ={inputId.getText().toString()};
+        ContentValues values = new ContentValues();
+        values.put(CreateUsersTable.KEY_NAME, inputName.getText().toString());
+        values.put(CreateUsersTable.KEY_EMAIL, inputEmail.getText().toString());
+
+        db.update(CreateUsersTable.TABLE_USER, values,CreateUsersTable.KEY_ID + "=?", params);
+        Toast.makeText(getApplicationContext(),"Usuario actualizado con éxito",Toast.LENGTH_LONG).show();
+        db.close();
     }
 
     private void getUserSql() {
@@ -77,6 +93,8 @@ public class ManagerUser extends AppCompatActivity {
     }
 
     private void clearInputs() {
+        inputName.setText("");
+        inputEmail.setText("");
     }
 }
 
