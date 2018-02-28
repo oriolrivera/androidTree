@@ -46,7 +46,7 @@ public class SaveUser extends AppCompatActivity {
          provisional method
      */
     private void commitUserSql() {
-        ConnectionSQLiteHelper conn = new ConnectionSQLiteHelper(this,"UsersDB",null,1);
+        ConnectionSQLiteHelper conn = new ConnectionSQLiteHelper(this);
 
         SQLiteDatabase db = conn.getWritableDatabase();
 
@@ -62,7 +62,7 @@ public class SaveUser extends AppCompatActivity {
     }
 
     private void commitUser(){
-        ConnectionSQLiteHelper conn = new ConnectionSQLiteHelper(this,"UsersDB",null,1);
+        ConnectionSQLiteHelper conn = new ConnectionSQLiteHelper(this);
         SQLiteDatabase db = conn.getWritableDatabase();
 
         ContentValues values = new ContentValues();

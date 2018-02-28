@@ -31,7 +31,7 @@ public class UsersList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity);
 
-        conn = new ConnectionSQLiteHelper(getApplicationContext(),"UsersDB",null,1);
+        conn = new ConnectionSQLiteHelper(getApplicationContext());
 
         listUsers = new ArrayList<>();
 

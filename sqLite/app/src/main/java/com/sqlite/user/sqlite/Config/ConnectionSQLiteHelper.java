@@ -16,8 +16,8 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper{
     // Database Name
     private static final String DATABASE_NAME = "UsersDB";
 
-    public ConnectionSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public ConnectionSQLiteHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
