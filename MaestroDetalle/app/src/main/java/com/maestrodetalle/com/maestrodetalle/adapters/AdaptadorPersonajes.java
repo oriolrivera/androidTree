@@ -1,5 +1,19 @@
 package com.maestrodetalle.com.maestrodetalle.adapters;
 
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.maestrodetalle.com.maestrodetalle.R;
+import com.maestrodetalle.com.maestrodetalle.entidades.PersonajeVo;
+import com.maestrodetalle.com.maestrodetalle.utilidades.Utilidades;
+
+import java.util.ArrayList;
+
 /**
  * Created by USER on 3/8/2018.
  */
@@ -14,6 +28,7 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
 
     @Override
     public PersonajesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list,null,false);
         RecyclerView.LayoutParams layParams = new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -61,7 +76,7 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
                 txtInformacion= (TextView) itemView.findViewById(R.id.idInfo);
             }
 
-            foto= (ImageView) itemView.findViewById(R.id.idImagen);
+            foto = (ImageView) itemView.findViewById(R.id.idImagen);
         }
     }
 }
