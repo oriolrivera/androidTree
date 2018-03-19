@@ -1,8 +1,10 @@
 package com.apirestmain.com.apirestmain;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,8 +15,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.apirestmain.com.apirestmain.Fragment.UsersFragment;
+import com.apirestmain.com.apirestmain.Interfaces.IFragments;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, IFragments {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +85,14 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Fragment miFragment = null;
+        boolean fragmentSeleccionado = false;
+
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.nav_users) {
+            miFragment = new UsersFragment();
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -94,8 +103,17 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        if (fragmentSeleccionado==true){
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
