@@ -1,14 +1,33 @@
 package com.apirestmain.com.apirestmain.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.apirestmain.com.apirestmain.Adapters.UsersAdapter;
+import com.apirestmain.com.apirestmain.Models.User;
 import com.apirestmain.com.apirestmain.R;
+import com.apirestmain.com.apirestmain.Utils.UrlProvider;
+import com.apirestmain.com.apirestmain.Utils.VolleySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 /**
@@ -19,7 +38,7 @@ import com.apirestmain.com.apirestmain.R;
  * Use the {@link UsersFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UsersFragment extends Fragment {
+public class UsersFragment extends Fragment implements  Response.Listener<JSONObject>,Response.ErrorListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,6 +49,14 @@ public class UsersFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    RecyclerView recyclerUsers;
+    ArrayList<User> listUsers;
+
+    ProgressDialog progress;
+
+    // RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
 
     public UsersFragment() {
         // Required empty public constructor
@@ -65,8 +92,28 @@ public class UsersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_users, container, false);
+
+        listUsers = new ArrayList<>();
+        recyclerUsers = (RecyclerView) view.findViewById(R.id.idRecycler);
+        recyclerUsers.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerUsers.setHasFixedSize(true);
+
+        getAllUser();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_users, container, false);
+        return view;
+    }
+
+    private void getAllUser() {
+        progress = new ProgressDialog(getContext());
+        progress.setMessage("Loading...");
+        progress.show();
+
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, UrlProvider.Users, null, (Response.Listener<JSONObject>) this, this);
+
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -86,6 +133,46 @@ public class UsersFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getContext(), "Error conectando al servicio "+error.toString(), Toast.LENGTH_LONG).show();
+        System.out.println();
+        Log.d("ERROR: ", error.toString());
+        progress.hide();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        User user = null;
+
+        JSONArray json=response.optJSONArray("users");
+
+        try {
+
+            for (int i=0;i<json.length();i++){
+                user = new User();
+                JSONObject jsonObject = null;
+                jsonObject= json.getJSONObject(i);
+
+                user.setName(jsonObject.optString("displayName"));
+                user.setEmail(jsonObject.optString("email"));
+                listUsers.add(user);
+            }
+            progress.hide();
+            UsersAdapter adapter=new UsersAdapter(listUsers);
+            recyclerUsers.setAdapter(adapter);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
+                    " "+response, Toast.LENGTH_LONG).show();
+            progress.hide();
+        }
+
+    }
+
 
     @Override
     public void onDetach() {
