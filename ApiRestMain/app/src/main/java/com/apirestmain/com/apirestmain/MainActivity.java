@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.apirestmain.com.apirestmain.Fragment.CreateUserFragment;
 import com.apirestmain.com.apirestmain.Fragment.UsersFragment;
 import com.apirestmain.com.apirestmain.Interfaces.IFragments;
 
@@ -85,14 +86,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Fragment miFragment = null;
-        boolean fragmentSeleccionado = false;
+        Fragment myFragment = null;
+        boolean fragmentSelect = false;
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_create_user) {
+            myFragment = new CreateUserFragment();
+            fragmentSelect = true;
         } else if (id == R.id.nav_users) {
-            miFragment = new UsersFragment();
-            fragmentSeleccionado = true;
+            myFragment = new UsersFragment();
+            fragmentSelect = true;
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -103,8 +105,8 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        if (fragmentSeleccionado==true){
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+        if (fragmentSelect){
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, myFragment).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

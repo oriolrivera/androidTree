@@ -9,4 +9,5 @@ public class UrlProvider {
     private static final String baseUrl = "http://url/api/";
 
     public static final String Users = baseUrl + "users";
+    public static final String SaveUser = baseUrl + "user";
 }
